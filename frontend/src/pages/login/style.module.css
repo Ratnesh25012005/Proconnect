@@ -1,0 +1,45 @@
+.container {
+  display:flex;
+  justify-content: center;
+  height:90svh;
+  align-items:center;
+  background-color: snow;
+}
+
+.cardContainer {
+  height: 80vh;
+  display: flex;
+  border-radius: 10px;
+  overflow: hidden;
+  width: 80vw;
+  border-radius: 10px;
+  background: white;
+  box-shadow: 10px 10px 15px rgb(173, 173, 173);
+}
+
+.cardContainer_left{
+    flex:0.6;
+    padding:2rem;
+    text-align: center;
+}
+
+.cardContainer_right{
+    flex: 0.4;
+    background-color: #00488b;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cardleft_heading{
+    font-weight: bold;
+    font-size: 1.8rem;
+}
+
+.inputField{
+    padding-inline:1.3rem ;
+    padding-block:0.8rem ;
+    outline: none;
+    border-radius: 10px;
+    border:1px solid silver;
+}
