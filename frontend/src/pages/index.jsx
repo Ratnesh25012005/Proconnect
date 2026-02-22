@@ -5,16 +5,6 @@ import styles from "@/styles/Home.module.css";
 import { useRouter } from "next/router";
 import UserLayout from "@/layout/UserLayout";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
 export default function Home() {
   const router = useRouter();
   return (
