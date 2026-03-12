@@ -5,6 +5,7 @@ import crypto from "crypto"
 import PDFDocument from 'pdfkit';
 import fs from 'fs';
 import ConnectionRequest from "../models/connections.model.js";
+import Comment from "../models/comments.model.js";
 
 
 
@@ -17,18 +18,29 @@ const convertUserDataToPDF = async (userData) => {
 
     doc.pipe(stream);
 
-    doc.image(`uploads/${userData.userId.profilePicture}`,{ align: "center",width:100});
+    // doc.image(`uploads/${userData.userId.profilePicture}`,{ align: "center",width:100});
+    const imagePath = `uploads/${userData.userId.profilePicture}`;
+
+    if(imagePath && fs.existsSync(imagePath)){
+        doc.image(imagePath,{ align:"center", width:100 });
+    }
     doc.fontSize(14).text(`Name: ${userData.userId.name}`);
     doc.fontSize(14).text(`Username: ${userData.userId.username}`);
     doc.fontSize(14).text(`Email: ${userData.userId.email}`);
     doc.fontSize(14).text(`Bio: ${userData.bio}`);
     doc.fontSize(14).text(`Current Position: ${userData.currentPost}`);
 
-    doc.fontSize(14).text("Past Work:")
+    doc.fontSize(14).text("Past Work")
     userData.pastWork.forEach((work,index)=>{
         doc.fontSize(14).text(`Company Name:${work.company}`);
         doc.fontSize(14).text(`Position:${work.position}`);
         doc.fontSize(14).text(`Years:${work.years}`);
+    })
+    doc.fontSize(14).text("Education")
+    userData.education.forEach((edu,index)=>{
+        doc.fontSize(14).text(`School:${edu.school}`);
+        doc.fontSize(14).text(`Degree:${edu.degree}`);
+        doc.fontSize(14).text(`Years:${edu.fieldOfStudy}`);
     })
 
     doc.end();
@@ -146,7 +158,7 @@ export const updateUserProfile=async(req,res)=>{
 
 export const getUserAndProfile=async(req,res)=>{
     try{
-        const{ token } = req.body;
+        const{ token } = req.query;
         const user = await User.findOne({token:token});
 
         if(!user){
@@ -155,6 +167,10 @@ export const getUserAndProfile=async(req,res)=>{
 
         const userProfile = await Profile.findOne({userId: user._id})
             .populate('userId','name email username profilePicture');
+
+        if (!userProfile) {
+            return res.status(404).json({ message: "User profile not found" });
+        }
 
         return res.json({"profile":userProfile});
     }catch(error){
@@ -255,7 +271,7 @@ export const sendConnectionRequest = async(req,res)=>{
 
 
 export const getMyConnectionRequests = async (req,res)=> {
-    const { token } = req.body;
+    const { token } = req.query;
 
     try{
         const user = await User.findOne({ token });
@@ -277,7 +293,7 @@ export const getMyConnectionRequests = async (req,res)=> {
 
 export const whatAreMyConnections = async (req,res)=>{
 
-    const { token } =req.body;
+    const { token } =req.query;
 
     try{
 
@@ -324,6 +340,60 @@ export const acceptConnectionRequest = async (req,res) =>{
 
         return res.json({ message: "Request Updated" });
 
+    }catch(error){
+        return res.status(500).json({message:error.message})
+    }
+}
+
+// export const commentPost=async(req,res)=>{
+
+//     const { token, post_id, commentBody}=req.body;
+
+//     try{
+//         const user=await User.findOne({token:token}).select("_id");
+//         if(!user){
+//             return res.status(404).json({message:"User not found"})
+//         }
+
+//         const post=await Post.findOne({
+//             _id: post_id
+//         });
+//         if(!post){
+//             return res.status(404).json({message:"Post not found"})
+//         }
+
+//         const comment = new Comment ({
+//             userId:user._id,
+//             postId:post_id,
+//             body:commentBody
+//         });
+
+//         await comment.save();
+
+//         return res.status(200).json({message:"Comment Added"})
+//     }catch(error){
+//         return res.status(500).json({message:error.message});
+//     }
+// }
+
+
+
+export const getUserProfileAndUserBasedOnUsername = async (req,res) => {
+    const { username } = req.query;
+
+    try{
+        const user = await User.findOne({username});
+
+        if(!user){
+            return res.status(404).json({message:"User not found"})
+        }
+
+        const userProfile = await Profile.findOne({userId:user._id})
+            .populate('userId','name username email profilePicture');
+        
+            
+        return res.json({"profile":userProfile})
+    
     }catch(error){
         return res.status(500).json({message:error.message})
     }
