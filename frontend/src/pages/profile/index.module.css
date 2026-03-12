@@ -37,6 +37,8 @@ align-items: center;
 gap: 1.4rem;
 }
 
+
+
 .card__profileContainer {
 display: flex;
 }
@@ -199,4 +201,16 @@ cursor: pointer;
     border-radius: 10px;
     border:1px solid silver;
     width: 100%;
+}
+
+.profileContainer_flex{
+    display:flex; 
+    gap:0.7rem;
+}
+
+@media (max-width: 600px) {
+    .profileContainer_flex{
+        flex-direction:column;
+    }
+    
 }

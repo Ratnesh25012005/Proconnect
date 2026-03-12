@@ -9,7 +9,7 @@
 .backDropContainer{
     width: 100%;
     height: 30vh;
-    background: url("https://images.pexels.com/photos/168938/pexels-photo-168938.jpeg?_gl=1*4tzpcs*_ga*MTE1ODQ4ODg2OS4xNzQ4NTExNzA0*_ga_8JE65Q40S6*czE3NzIwNDA4NzYkbzIkZzEkdDE3NzIwNDEyNjIkajU5JGwwJGgw");
+    background: url("https://images.pexels.com/photos/5208875/pexels-photo-5208875.jpeg");
     background-size: cover;
     background-repeat: no-repeat;
     position: relative;
@@ -86,4 +86,26 @@ cursor: pointer;
     padding-block: 1rem;
     border-radius: 10px;
     box-shadow: 10px 10px 15px rgb(173,173,173);
+}
+
+.profileContainer_flex{
+    display:flex; 
+    gap:0.7rem;
+}
+/* 
+.profileContainer_details{
+    display:flex; 
+    gap:0.7rem;
+} */
+
+@media (max-width: 600px) {
+    .profileContainer_flex{
+        flex-direction:column;
+    }
+
+    /* .profileContainer_details{
+        flex-direction:column;
+    } */
+    
+    
 }

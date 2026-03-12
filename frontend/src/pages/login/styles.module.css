@@ -73,3 +73,10 @@
     border-radius: 10px;;
     cursor:pointer;
 }
+
+@media (max-width:600px) {
+    .cardContainer{
+        flex-direction: column;
+        height:70vh;
+    }
+}

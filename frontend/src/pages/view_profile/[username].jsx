@@ -73,9 +73,7 @@ const ViewProfilePage = ({userProfile}) => {
           </div>
 
           <div className={styles.profileContainer_details}>
-
-            <div style={{display:"flex", gap:"0.7rem" }}>
-
+            <div className={styles.profileContainer_flex}>
               <div style={{flex:"0.8"}}>
                 <div style={{display:"flex", width:"fit-content", alignItems:"center",gap:"1.2rem"}}>
                   <h2>{userProfile.userId.name}</h2>
@@ -147,6 +145,30 @@ const ViewProfilePage = ({userProfile}) => {
               }
             </div>
           </div>
+
+          <div className="workHistory">
+              <h4>Education</h4>
+
+              <div className={styles.workHistoryContainer}>
+                {userProfile.education.map((edu, index) => {
+                  return (
+                    <div key={index} className={styles.workHistoryCard}>
+                      <p
+                        style={{
+                          fontWeight: "bold",
+                          display: "flex",
+                          alignItems: "center",
+                          gap: "0.8rem",
+                        }}
+                      >
+                        {edu.school} - {edu.degree}
+                      </p>
+                      <p>{edu.fieldOfStudy}</p>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
         </div>
       </DashboardLayout>
     </UserLayout>
