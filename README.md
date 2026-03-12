@@ -29,7 +29,7 @@ A professional social networking platform where users can connect with others, s
 - Send, accept & manage connection requests
 - Discover other users
 - View other users' profiles
-
+```
 ## Project Structure
 Proconnect/
 ├── backend/
@@ -44,7 +44,7 @@ Proconnect/
 ├── config/ # Axios config & Redux store
 ├── layout/
 └── pages/
-
+```
 
 ## Getting Started
 
@@ -65,7 +65,7 @@ Frontend Setup: cd frontend
 npm install
 npm run dev
 
-
+```
 API Endpoints
 User
 Method	 Endpoint	                            Description
@@ -82,8 +82,8 @@ GET	    /user/getConnectionRequests	          Get received connection requests
 GET	    /user/user_connection_request	        Get my connections
 POST	  /user/accept_connection_request 	    Accept a connection request
 GET	    /user/get_profile_based_on_username   Get profile by username
-
-
+```
+```
 Posts
 Method	     Endpoint	                  Description
 GET	         /posts	                    Get all posts
@@ -92,3 +92,4 @@ DELETE	     /delete_post	              Delete a post
 POST	       /comment	                  Comment on a post
 GET	         /get_comments	            Get comments for a post
 DELETE	     /delete_comment	          Delete a comment
+```
