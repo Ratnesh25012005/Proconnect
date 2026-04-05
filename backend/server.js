@@ -16,8 +16,10 @@ app.use(postRoutes)
 app.use(userRoutes)
 app.use(express.static("uploads"))
 
+const uri=process.env.MONGODB_URL
+
 const start = async()=>{
-    const connectDB=await mongoose.connect("");
+    const connectDB=await mongoose.connect(uri);
 
     app.listen(9080,()=>{
         console.log("Server is working at port 9080")
